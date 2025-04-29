@@ -1,5 +1,6 @@
 package com.backend.server.domain.user.controller;
 
+import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
 import com.backend.server.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,20 @@ public class UserController {
         response.put("hasSuccess",responseGetUserDto != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllUsers() {
+
+            List<ResponseGetAllUserDto> userList = userService.getAllUsers();
+
+            Map<String, Object> response = new HashMap<>();
+                response.put("userList", userList);
+                response.put("message", userList.isEmpty() ? "유저 전체조회 실패" : "유저 조회 성공!");
+                response.put("hasSuccess", userList != null);
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
 
     }
 
