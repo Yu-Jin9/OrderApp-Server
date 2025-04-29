@@ -1,14 +1,13 @@
 package com.backend.server.domain.menu.controller;
 
+import com.backend.server.domain.menu.data.MenuEntity;
+import com.backend.server.domain.menu.data.dto.RequestSaveMenuDto;
 import com.backend.server.domain.menu.data.dto.ResponseGetMenuDto;
 import com.backend.server.domain.menu.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
 import java.util.HashMap;
@@ -33,4 +32,16 @@ public class MenuController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PostMapping
+    public ResponseEntity<Map<String, Object>> addMenu(@RequestBody MenuEntity menuItem) {
+        RequestSaveMenuDto requestSaveMenuDto = menuService.saveMenu(menuItem);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", requestSaveMenuDto == null ? "메뉴추가 실패" : "메뉴추가 성공");
+        response.put("hasSuccess", requestSaveMenuDto != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }
+
