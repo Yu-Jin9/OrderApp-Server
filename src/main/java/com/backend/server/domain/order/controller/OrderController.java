@@ -73,4 +73,18 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PutMapping("state")
+    public ResponseEntity<Map<String,Object>> updateState(@RequestBody ResponseGetOrderDto getOrderDto) {
+
+        UUID orderId = orderService.updateState(getOrderDto);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("code", orderId);
+        response.put("message", orderId == null ? "상태변경 실패!" : "주문 번호 조회 성공");
+        response.put("hasSuccess", orderId != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

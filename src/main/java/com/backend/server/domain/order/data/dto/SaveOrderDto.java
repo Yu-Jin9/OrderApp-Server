@@ -2,6 +2,7 @@ package com.backend.server.domain.order.data.dto;
 
 import com.backend.server.domain.order.data.ORDER;
 import com.backend.server.domain.order.data.OrderEntity;
+import com.backend.server.domain.order.data.STATE;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class SaveOrderDto {
     private int menuNum;
     private LocalDateTime orderTime;
     private UUID orderId;
+    private STATE state;
 
     @Builder
     public SaveOrderDto(OrderEntity saveOrder) {
@@ -25,5 +27,6 @@ public class SaveOrderDto {
         this.orderType = getOrderType();
         this.menuNum = getMenuNum();
         this.orderId = getOrderId();
+        this.state = getState();
     }
 }
