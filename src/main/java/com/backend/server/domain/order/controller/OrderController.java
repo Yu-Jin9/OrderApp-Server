@@ -26,10 +26,11 @@ public class OrderController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("orderInfo", responseGetOrderDto);
-        response.put("message", responseGetOrderDto == null ? "메뉴 조회 실패" : "메뉴 조회 성공");
+        response.put("message", responseGetOrderDto == null ? "주문 조회 실패" : "주문 조회 성공");
         response.put("hasSuccess", responseGetOrderDto != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    
 }
