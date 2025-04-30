@@ -1,9 +1,10 @@
 package com.backend.server.domain.menu.controller;
 
-import com.backend.server.domain.menu.data.MenuEntity;
-import com.backend.server.domain.menu.data.dto.RequestSaveMenuDto;
+import com.backend.server.domain.menu.data.dto.SaveMenuDto;
 import com.backend.server.domain.menu.data.dto.ResponseGetMenuDto;
+import com.backend.server.domain.menu.data.dto.UpdateMenuDto;
 import com.backend.server.domain.menu.service.MenuService;
+import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,7 +21,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MenuController {
 
-    private final MenuService menuService;
+    private final MenuService menuService = null;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getMenu(@RequestParam("menuId")UUID menuId) {
@@ -34,14 +36,45 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> addMenu(@RequestBody MenuEntity menuItem) {
-        RequestSaveMenuDto requestSaveMenuDto = menuService.saveMenu(menuItem);
+    public ResponseEntity<Map<String, Object>> addMenu(@RequestBody SaveMenuDto menuItem) {
+
+        UUID menuId = menuService.saveMenu(menuItem);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("message", requestSaveMenuDto == null ? "메뉴추가 실패" : "메뉴추가 성공");
-        response.put("hasSuccess", requestSaveMenuDto != null);
+        response.put("menuId", menuId);
+        response.put("message", menuId == null ? "메뉴추가 실패" : "메뉴추가 성공");
+        response.put("hasSuccess", menuId != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    
+    @PutMapping
+    public ResponseEntity<Map<String, Object>> updateMenu(@RequestBody UpdateMenuDto menuItem) {
+
+        UUID menuId = menuService.updateMenu(menuItem);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("menuId", menuId);
+        response.put("message", menuId == null ? "메뉴 업데이트 실패" : "메뉴 업데이트 완료");
+        response.put("hasSuccess", menuId != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Map<String, Object>> getAllmenu() {
+
+        List<ResponseGetMenuDto> menuList = menuService.getAllMenu();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("menuList", menuList);
+        response.put("message", menuList.isEmpty() ? "메뉴 전체조회 실패" : "메뉴 조회 성공!");
+        response.put("hasSuccess", menuList != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
+
 }
 
