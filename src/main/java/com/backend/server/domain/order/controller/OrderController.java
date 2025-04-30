@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -32,5 +33,18 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<Map<String,Object>> getAllOrder() {
+
+        List<ResponseGetOrderDto> orderList = orderService.getAllOrder();
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderList", orderList);
+        response.put("message", orderList.isEmpty() ? "주문 전체조회 실패" : "주문 조회 성공!");
+        response.put("hasSuccess", orderList != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    }
     
 }
