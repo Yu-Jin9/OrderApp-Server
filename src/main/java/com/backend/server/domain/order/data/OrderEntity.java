@@ -28,12 +28,13 @@ public class OrderEntity {
     private ORDER orderType;
 
     @Builder
-    public OrderEntity(SaveOrderDto saveOrder, LocalDateTime orderTime) {
+    public OrderEntity(SaveOrderDto saveOrder, LocalDateTime orderTime, int newCode) {
         this.userId = saveOrder.getUserId();
         this.totalPrice = saveOrder.getTotalPrice();
         this.menuNum = saveOrder.getMenuNum();
         this.orderType = saveOrder.getOrderType();
         this.orderTime = orderTime;
+        this.code = newCode;
     }
 
 }
