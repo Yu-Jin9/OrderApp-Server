@@ -7,20 +7,20 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class RequestSaveMenuDto {
+public class SaveMenuDto {
 
-    private UUID menuId;
     private String name;
     private String category;
     private int price;
     private String img;
 
     @Builder
-    public RequestSaveMenuDto(MenuEntity menuItem) {
-        this.menuId = getMenuId();
+    public SaveMenuDto(MenuEntity menuItem) {
+
         this.name = getName();
         this.category = getCategory();
         this.price = getPrice();
         this.img = getImg();
     }
+
 }
