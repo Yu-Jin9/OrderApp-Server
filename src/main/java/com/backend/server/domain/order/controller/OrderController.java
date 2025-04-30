@@ -60,5 +60,17 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    
+
+    @GetMapping("/code")
+    public ResponseEntity<Map<String,Object>> getOrderCode(@RequestParam("orderId")UUID orderId) {
+
+        Integer orderCode = orderService.getOrderCode(orderId);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("code", orderCode);
+        response.put("message", orderCode == null ? "주문번호 조회 실패!" : "주문 번호 조회 성공");
+        response.put("hasSuccess", orderCode != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }
