@@ -2,6 +2,7 @@ package com.backend.server.domain.order.controller;
 
 import com.backend.server.domain.order.data.OrderEntity;
 import com.backend.server.domain.order.data.dto.ResponseGetOrderDto;
+import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import com.backend.server.domain.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,19 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
+    }
+
+    @PostMapping
+    public ResponseEntity<Map<String,Object>> saveOrder(@RequestBody SaveOrderDto saveOrderDto) {
+
+        UUID orderId = orderService.saveOrder(saveOrderDto);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderId", orderId);
+        response.put("message", orderId == null ? "주문 실패!" : "주문 완료!");
+        response.put("hasSuccess", orderId != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
 }

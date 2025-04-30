@@ -4,11 +4,15 @@ package com.backend.server.domain.order.service;
 import com.backend.server.domain.order.bean.GetAllOrderEntityBean;
 import com.backend.server.domain.order.bean.GetOrderEntityBean;
 
+import com.backend.server.domain.order.bean.SaveOrderEntityBean;
 import com.backend.server.domain.order.data.OrderEntity;
 import com.backend.server.domain.order.data.dto.ResponseGetOrderDto;
+import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Order;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,4 +40,16 @@ public class OrderService {
                 .map(ResponseGetOrderDto::new)
                 .collect(Collectors.toList());
     }
+
+    private final SaveOrderEntityBean saveOrderEntityBean;
+    public UUID saveOrder(SaveOrderDto saveOrderDto) {
+
+        OrderEntity saveOrderEntity = OrderEntity.builder().saveOrder(saveOrderDto).orderTime(LocalDateTime.now()).build();
+        saveOrderEntityBean.exec(saveOrderEntity);
+
+        OrderEntity getOrder = getOrderEntityBean.exec(saveOrderEntity.getOrderId());
+
+        return getOrder == null ? null : getOrder.getOrderId();
+    }
+
 }
