@@ -37,4 +37,9 @@ public class OrderEntity {
         this.code = newCode;
     }
 
+    public void updateState(STATE state,UUID orderId) {
+        this.state = state;
+        this.orderId = orderId;
+    }
+
 }

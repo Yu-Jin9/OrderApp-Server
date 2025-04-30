@@ -7,7 +7,6 @@ import com.backend.server.domain.order.data.OrderEntity;
 import com.backend.server.domain.order.data.dto.ResponseGetOrderDto;
 import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Order;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -57,6 +56,19 @@ public class OrderService {
         OrderEntity orderCode = getOrderCodeBean.exec(orderId);
 
         return orderCode == null ? null : orderCode.getCode();
+    }
+
+
+    private final UpdateStateEntityBean updateStateEntityBean;
+    public UUID updateState(ResponseGetOrderDto getOrderDto) {
+
+        OrderEntity orderEntity = getOrderEntityBean.exec(getOrderDto.getOrderId());
+        if(orderEntity == null) return null;
+
+        orderEntity.updateState(getOrderDto.getState(), orderEntity.getOrderId());
+        OrderEntity resultOrder = updateStateEntityBean.exec(orderEntity);
+
+        return resultOrder == null ? null : resultOrder.getOrderId();
     }
 
 }
