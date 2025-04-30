@@ -2,6 +2,7 @@ package com.backend.server.domain.order.service;
 
 
 import com.backend.server.domain.order.bean.GetAllOrderEntityBean;
+import com.backend.server.domain.order.bean.GetOrderCodeBean;
 import com.backend.server.domain.order.bean.GetOrderEntityBean;
 
 import com.backend.server.domain.order.bean.SaveOrderEntityBean;
@@ -50,6 +51,13 @@ public class OrderService {
         OrderEntity getOrder = getOrderEntityBean.exec(saveOrderEntity.getOrderId());
 
         return getOrder == null ? null : getOrder.getOrderId();
+    }
+
+    private final GetOrderCodeBean getOrderCodeBean;
+    public Integer getOrderCode(UUID orderId) {
+        OrderEntity orderCode = getOrderCodeBean.exec(orderId);
+
+        return orderCode == null ? null : orderCode.getCode();
     }
 
 }
