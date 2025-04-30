@@ -6,9 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.sql.Update;
 
 import java.util.UUID;
 
@@ -38,6 +35,11 @@ public class MenuEntity {
         this.category = dto.getCategory();
         this.price = dto.getPrice();
         this.img = dto.getImg();
+    }
+
+
+    public void deleteMenuTrue(Boolean isDelete) {
+        hasDelete = isDelete;
     }
 
 }
