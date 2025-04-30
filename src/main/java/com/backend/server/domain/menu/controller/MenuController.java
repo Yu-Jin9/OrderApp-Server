@@ -1,5 +1,6 @@
 package com.backend.server.domain.menu.controller;
 
+import com.backend.server.domain.menu.data.dto.DeleteDto;
 import com.backend.server.domain.menu.data.dto.SaveMenuDto;
 import com.backend.server.domain.menu.data.dto.ResponseGetMenuDto;
 import com.backend.server.domain.menu.data.dto.UpdateMenuDto;
@@ -74,6 +75,18 @@ public class MenuController {
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
 
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Map<String, Object>> deleteMenu(@RequestBody DeleteDto deleteDto) {
+
+        UUID result = menuService.deleteMenu(deleteDto);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", result == null ? "메뉴 삭제 실패" : "메뉴 삭제 성공!");
+        response.put("hasSuccess", result != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

@@ -1,9 +1,11 @@
 package com.backend.server.domain.menu.service;
 
+import com.backend.server.domain.menu.bean.DeleteMenuEntityBean;
 import com.backend.server.domain.menu.bean.GetAllMenuEntityBean;
 import com.backend.server.domain.menu.bean.GetMenuEntityBean;
 import com.backend.server.domain.menu.bean.SaveMenuEntityBean;
 import com.backend.server.domain.menu.data.MenuEntity;
+import com.backend.server.domain.menu.data.dto.DeleteDto;
 import com.backend.server.domain.menu.data.dto.ResponseGetMenuDto;
 import com.backend.server.domain.menu.data.dto.SaveMenuDto;
 import com.backend.server.domain.menu.data.dto.UpdateMenuDto;
@@ -60,6 +62,18 @@ public class MenuService {
                 .map(ResponseGetMenuDto::new)
                 .collect(Collectors.toList());
 
+    }
+
+    private final DeleteMenuEntityBean deleteMenuEntityBean;
+    public UUID deleteMenu(DeleteDto dto) {
+        UUID menuId = dto.getMenuId();
+        MenuEntity deleteMenu = getMenuEntityBean.exec(menuId);
+        if(deleteMenu == null) return null;
+
+        deleteMenu.deleteMenuTrue(true);
+        deleteMenuEntityBean.exec(deleteMenu);
+
+        return deleteMenu.getMenuId();
     }
 
 }
