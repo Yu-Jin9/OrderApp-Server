@@ -26,7 +26,7 @@ public class UserService {
 
         UserEntity user = getUserEntityBean.exec(userId);
 
-        if (user == null) return null;
+        if (user == null || user.isHasDelete()) return null;
 
         return ResponseGetUserDto.builder().user(user).build();
     }
