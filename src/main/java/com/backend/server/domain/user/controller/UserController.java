@@ -2,14 +2,12 @@ package com.backend.server.domain.user.controller;
 
 import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
+import com.backend.server.domain.user.data.dto.UpdateUserDto;
 import com.backend.server.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.Object;
 import java.util.HashMap;
@@ -40,15 +38,27 @@ public class UserController {
     @GetMapping("/all")
     public ResponseEntity<Map<String, Object>> getAllUsers() {
 
-            List<ResponseGetAllUserDto> userList = userService.getAllUsers();
+        List<ResponseGetAllUserDto> userList = userService.getAllUsers();
 
-            Map<String, Object> response = new HashMap<>();
-                response.put("userList", userList);
-                response.put("message", userList.isEmpty() ? "유저 전체조회 실패" : "유저 조회 성공!");
-                response.put("hasSuccess", userList != null);
+        Map<String, Object> response = new HashMap<>();
+            response.put("userList", userList);
+            response.put("message", userList.isEmpty() ? "회원 전체조회 실패" : "회원 조회 성공!");
+            response.put("hasSuccess", userList != null);
 
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
 
+    }
+
+    @PutMapping
+    public ResponseEntity<Map<String, Object>> updateUser(@RequestBody UpdateUserDto updateUserDto) {
+        UUID userId = userService.updateUser(updateUserDto);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("userList", userId);
+        response.put("message", userId == null ? "회원정보 수정 실패" : "회원정보 수정 성공!");
+        response.put("hasSuccess", userId != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
