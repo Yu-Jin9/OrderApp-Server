@@ -17,11 +17,11 @@ public class UpdateMenuDto {
 
     @Builder
     public UpdateMenuDto(MenuEntity menuItem) {
-        this.menuId = getMenuId();
-        this.name = getName();
-        this.category = getCategory();
-        this.price = getPrice();
-        this.img = getImg();
+        this.menuId = menuItem.getMenuId();
+        this.name = menuItem.getName();
+        this.category = menuItem.getCategory();
+        this.price = menuItem.getPrice();
+        this.img = menuItem.getImg();
     }
 
 }
