@@ -40,7 +40,7 @@ public class OrderController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("orderList", orderList);
-        response.put("message", orderList.isEmpty() ? "주문 전체조회 실패" : "주문 조회 성공!");
+        response.put("message", orderList.isEmpty() ? "주문 전체조회 실패" : "주문 전체조회 성공!");
         response.put("hasSuccess", orderList != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -80,7 +80,7 @@ public class OrderController {
 
         Map<String,Object> response = new HashMap<>();
         response.put("code", orderId);
-        response.put("message", orderId == null ? "상태변경 실패!" : "주문 번호 조회 성공");
+        response.put("message", orderId == null ? "주문 상태변경 실패!" : "주문 상태변경 성공");
         response.put("hasSuccess", orderId != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
