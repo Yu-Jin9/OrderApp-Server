@@ -14,6 +14,6 @@ public class GetAllUserEntityBean {
     private final UserRepository userRepository;
 
     public List<UserEntity> exec() {
-        return userRepository.findAll();
+        return userRepository.findAllByHasDeleteFalse();
     }
 }
