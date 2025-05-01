@@ -1,13 +1,19 @@
 package com.backend.server.domain.user.data;
 
+import com.backend.server.domain.order.data.STATE;
+import com.backend.server.domain.user.data.dto.UpdateUserDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import lombok.Builder;
+import lombok.Getter;
+
 import java.util.UUID;
 
 
 @Entity
+@Getter
 public class UserEntity {
 
     @Id
@@ -19,4 +25,8 @@ public class UserEntity {
     private String userName;
     private boolean hasDelete;
 
+    public void updateUser(UpdateUserDto updateUserDto) {
+        this.userName = updateUserDto.getUserName();
+        this.role = updateUserDto.getRole();
+    }
 }

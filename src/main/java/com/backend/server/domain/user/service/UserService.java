@@ -1,12 +1,16 @@
 package com.backend.server.domain.user.service;
 
+import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import com.backend.server.domain.user.bean.GetAllUserEntityBean;
 import com.backend.server.domain.user.bean.GetUserEntityBean;
+import com.backend.server.domain.user.bean.SaveUserEntityBean;
 import com.backend.server.domain.user.data.UserEntity;
 import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
+import com.backend.server.domain.user.data.dto.UpdateUserDto;
 import com.backend.server.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,4 +41,15 @@ public class UserService {
                 .map(user -> new ResponseGetAllUserDto(user))
                 .collect(Collectors.toList());
     }
+
+    private final SaveUserEntityBean saveUserEntityBean;
+     public UUID updateUser(UpdateUserDto updateUserDto) {
+         UserEntity userEntity = getUserEntityBean.exec(updateUserDto.getUserId());
+         if(userEntity == null) return null;
+
+         userEntity.updateUser(updateUserDto);
+         saveUserEntityBean.exec(userEntity);
+
+         return userEntity.getUserId();
+     }
 }
