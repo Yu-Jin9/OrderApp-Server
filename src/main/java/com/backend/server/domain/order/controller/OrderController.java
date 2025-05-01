@@ -1,6 +1,5 @@
 package com.backend.server.domain.order.controller;
 
-import com.backend.server.domain.order.data.OrderEntity;
 import com.backend.server.domain.order.data.dto.ResponseGetOrderDto;
 import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import com.backend.server.domain.order.service.OrderService;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService = null;
+    private final OrderService orderService;
 
     @GetMapping
     public ResponseEntity<Map<String,Object>> getOrder(@RequestParam("orderId")UUID orderId ) {
@@ -64,17 +63,17 @@ public class OrderController {
     @GetMapping("/code")
     public ResponseEntity<Map<String,Object>> getOrderCode(@RequestParam("orderId")UUID orderId) {
 
-        Integer orderCode = orderService.getOrderCode(orderId);
+        int orderCode = orderService.getOrderCode(orderId);
 
         Map<String,Object> response = new HashMap<>();
         response.put("code", orderCode);
-        response.put("message", orderCode == null ? "주문번호 조회 실패!" : "주문 번호 조회 성공");
-        response.put("hasSuccess", orderCode != null);
+        response.put("message", orderCode == -1 ? "주문번호 조회 실패!" : "주문 번호 조회 성공");
+        response.put("hasSuccess", orderCode != -1);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping("state")
+    @PutMapping("/state")
     public ResponseEntity<Map<String,Object>> updateState(@RequestBody ResponseGetOrderDto getOrderDto) {
 
         UUID orderId = orderService.updateState(getOrderDto);
