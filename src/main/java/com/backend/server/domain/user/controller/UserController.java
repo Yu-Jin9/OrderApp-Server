@@ -85,4 +85,17 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PostMapping("/oauth/google")
+    public ResponseEntity<Map<String, Object>> oauthGoogleLogin(@RequestBody OAuthLoginDto oAuthLoginDto) {
+        UUID userId = userService.oauthGoogleLogin(oAuthLoginDto);
+        boolean success = userId != null;
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("hasSuccess", success);
+        response.put("message", success ? "로그인 성공" : "로그인 실패");
+        response.put("userId", success ? userId : "00000000-0000-0000-0000-000000000000");
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }

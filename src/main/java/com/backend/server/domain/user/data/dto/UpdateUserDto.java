@@ -1,6 +1,6 @@
 package com.backend.server.domain.user.data.dto;
 
-import com.backend.server.domain.user.data.Role;
+import com.backend.server.domain.user.data.UserRole;
 import com.backend.server.domain.user.data.UserEntity;
 import lombok.Builder;
 import lombok.Data;
@@ -13,12 +13,12 @@ import java.util.UUID;
 public class UpdateUserDto {
     private UUID userId;
     private String userName;
-    private Role role;
+    private UserRole userRole;
 
     @Builder
     public UpdateUserDto(UserEntity updateUserEntity) {
         this.userName = updateUserEntity.getUserName();
-        this.role = updateUserEntity.getRole();
+        this.userRole = updateUserEntity.getUserRole();
     }
 
 }
