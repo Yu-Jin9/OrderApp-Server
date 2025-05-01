@@ -17,10 +17,10 @@ public class SaveMenuDto {
     @Builder
     public SaveMenuDto(MenuEntity menuItem) {
 
-        this.name = getName();
-        this.category = getCategory();
-        this.price = getPrice();
-        this.img = getImg();
+        this.name = menuItem.getName();
+        this.category = menuItem.getCategory();
+        this.price = menuItem.getPrice();
+        this.img = menuItem.getImg();
     }
 
 }

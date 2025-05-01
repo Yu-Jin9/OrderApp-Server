@@ -17,11 +17,11 @@ public class ResponseGetMenuDto {
 
     @Builder
     public ResponseGetMenuDto(MenuEntity menu) {
-        this.menuId = getMenuId();
-        this.name = getName();
-        this.category = getCategory();
-        this.price = getPrice();
-        this.img = getImg();
+        this.menuId = menu.getMenuId();
+        this.name = menu.getName();
+        this.category = menu.getCategory();
+        this.price = menu.getPrice();
+        this.img = menu.getImg();
     }
 
 }
