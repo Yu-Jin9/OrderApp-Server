@@ -17,10 +17,10 @@ public class ResponseGetAllUserDto {
 
     @Builder
     public ResponseGetAllUserDto(UserEntity allUser) {
-        this.userId = getUserId();
-        this.email = getEmail();
-        this.userName = getUserName();
-        this.role = getRole();
+        this.userId = allUser.getUserId();
+        this.email = allUser.getEmail();
+        this.userName = allUser.getUserName();
+        this.role = allUser.getRole();
     }
 
 }
