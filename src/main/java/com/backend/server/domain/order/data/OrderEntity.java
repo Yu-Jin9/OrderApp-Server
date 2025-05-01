@@ -28,18 +28,17 @@ public class OrderEntity {
     private ORDER orderType;
 
     @Builder
-    public OrderEntity(SaveOrderDto saveOrder, LocalDateTime orderTime, int newCode) {
+    public OrderEntity(SaveOrderDto saveOrder, int newCode) {
         this.userId = saveOrder.getUserId();
         this.totalPrice = saveOrder.getTotalPrice();
         this.menuNum = saveOrder.getMenuNum();
         this.orderType = saveOrder.getOrderType();
-        this.orderTime = orderTime;
+        this.orderTime = LocalDateTime.now();
         this.code = newCode;
     }
 
-    public void updateState(STATE state,UUID orderId) {
+    public void updateState(STATE state) {
         this.state = state;
-        this.orderId = orderId;
     }
 
 }

@@ -17,7 +17,7 @@ public class ResponseGetOrderDto {
 
     private UUID orderId;
     private UUID userId;
-    private int totlaPrice;
+    private int totalPrice;
     private STATE state;
     private int code;
     private int menuNum;
@@ -26,9 +26,9 @@ public class ResponseGetOrderDto {
 
     @Builder
     public ResponseGetOrderDto(OrderEntity order) {
-        this.orderId = getOrderId();
+        this.orderId = order.getOrderId();
         this.userId = getUserId();
-        this.totlaPrice = getTotlaPrice();
+        this.totalPrice = order.getTotalPrice();
         this.state = getState();
         this.code = getCode();
         this.menuNum = getMenuNum();

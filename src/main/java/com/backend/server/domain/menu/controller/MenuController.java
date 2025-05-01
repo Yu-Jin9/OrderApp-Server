@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MenuController {
 
-    private final MenuService menuService = null;
+    private final MenuService menuService;
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getMenu(@RequestParam("menuId")UUID menuId) {

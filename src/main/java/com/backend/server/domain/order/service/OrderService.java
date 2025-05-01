@@ -43,7 +43,7 @@ public class OrderService {
     public UUID saveOrder(SaveOrderDto saveOrderDto) {
         OrderEntity recentlyOrder = getRecentlyOrder.exec();
         int newCode = recentlyOrder.getCode() + 1;
-        OrderEntity saveOrderEntity = OrderEntity.builder().saveOrder(saveOrderDto).orderTime(LocalDateTime.now()).newCode(newCode).build();
+        OrderEntity saveOrderEntity = OrderEntity.builder().saveOrder(saveOrderDto).newCode(newCode).build();
         saveOrderEntityBean.exec(saveOrderEntity);
 
         OrderEntity getOrder = getOrderEntityBean.exec(saveOrderEntity.getOrderId());
@@ -52,10 +52,10 @@ public class OrderService {
     }
 
     private final GetOrderCodeBean getOrderCodeBean;
-    public Integer getOrderCode(UUID orderId) {
+    public int getOrderCode(UUID orderId) {
         OrderEntity orderCode = getOrderCodeBean.exec(orderId);
 
-        return orderCode == null ? null : orderCode.getCode();
+        return orderCode == null ? -1 : orderCode.getCode();
     }
 
 
@@ -65,7 +65,7 @@ public class OrderService {
         OrderEntity orderEntity = getOrderEntityBean.exec(getOrderDto.getOrderId());
         if(orderEntity == null) return null;
 
-        orderEntity.updateState(getOrderDto.getState(), orderEntity.getOrderId());
+        orderEntity.updateState(getOrderDto.getState());
         OrderEntity resultOrder = updateStateEntityBean.exec(orderEntity);
 
         return resultOrder == null ? null : resultOrder.getOrderId();
