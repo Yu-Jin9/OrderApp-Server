@@ -1,5 +1,6 @@
 package com.backend.server.domain.user.controller;
 
+import com.backend.server.domain.user.data.dto.DeleteUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
 import com.backend.server.domain.user.data.dto.UpdateUserDto;
@@ -57,6 +58,18 @@ public class UserController {
         response.put("userList", userId);
         response.put("message", userId == null ? "회원정보 수정 실패" : "회원정보 수정 성공!");
         response.put("hasSuccess", userId != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Map<String,Object>> deleteUser(@RequestBody DeleteUserDto deleteDto) {
+
+        UUID result = userService.deleteMenu(deleteDto);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", result == null ? "회원 삭제 실패" : "회원 삭제 성공!");
+        response.put("hasSuccess", result != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
