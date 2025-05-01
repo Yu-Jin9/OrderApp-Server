@@ -22,11 +22,11 @@ public class SaveOrderDto {
 
     @Builder
     public SaveOrderDto(OrderEntity saveOrder) {
-        this.userId = getUserId();
-        this.totalPrice = getTotalPrice();
-        this.orderType = getOrderType();
-        this.menuNum = getMenuNum();
-        this.orderId = getOrderId();
-        this.state = getState();
+        this.userId = saveOrder.getUserId();
+        this.totalPrice = saveOrder.getTotalPrice();
+        this.orderType = saveOrder.getOrderType();
+        this.menuNum = saveOrder.getMenuNum();
+        this.orderId = saveOrder.getOrderId();
+        this.state = saveOrder.getState();
     }
 }
