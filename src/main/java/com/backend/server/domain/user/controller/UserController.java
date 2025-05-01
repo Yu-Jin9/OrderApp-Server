@@ -42,9 +42,9 @@ public class UserController {
         List<ResponseGetAllUserDto> userList = userService.getAllUsers();
 
         Map<String, Object> response = new HashMap<>();
-            response.put("userList", userList);
-            response.put("message", userList.isEmpty() ? "회원 전체조회 실패" : "회원 조회 성공!");
-            response.put("hasSuccess", userList != null);
+        response.put("userList", userList);
+        response.put("message", userList.isEmpty() ? "회원 전체조회 실패" : "회원 조회 성공!");
+        response.put("hasSuccess", userList != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
 

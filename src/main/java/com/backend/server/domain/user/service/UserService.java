@@ -39,7 +39,7 @@ public class UserService {
         if (allUser == null) return null;
 
         return allUser.stream()
-                .map(user -> new ResponseGetAllUserDto(user))
+                .map(ResponseGetAllUserDto::new)
                 .collect(Collectors.toList());
     }
 
