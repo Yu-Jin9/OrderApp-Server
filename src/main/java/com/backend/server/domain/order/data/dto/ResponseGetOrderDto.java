@@ -27,12 +27,12 @@ public class ResponseGetOrderDto {
     @Builder
     public ResponseGetOrderDto(OrderEntity order) {
         this.orderId = order.getOrderId();
-        this.userId = getUserId();
+        this.userId = order.getUserId();
         this.totalPrice = order.getTotalPrice();
-        this.state = getState();
-        this.code = getCode();
-        this.menuNum = getMenuNum();
-        this.orderTime = getOrderTime();
-        this.orderType = getOrderType();
+        this.state = order.getState();
+        this.code = order.getCode();
+        this.menuNum = order.getMenuNum();
+        this.orderTime = order.getOrderTime();
+        this.orderType = order.getOrderType();
     }
 }
