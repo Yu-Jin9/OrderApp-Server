@@ -3,12 +3,10 @@ package com.backend.server.domain.user.service;
 import com.backend.server.domain.order.data.dto.SaveOrderDto;
 import com.backend.server.domain.user.bean.GetAllUserEntityBean;
 import com.backend.server.domain.user.bean.GetUserEntityBean;
+import com.backend.server.domain.user.bean.LoginUserEntityBean;
 import com.backend.server.domain.user.bean.SaveUserEntityBean;
 import com.backend.server.domain.user.data.UserEntity;
-import com.backend.server.domain.user.data.dto.DeleteUserDto;
-import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
-import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
-import com.backend.server.domain.user.data.dto.UpdateUserDto;
+import com.backend.server.domain.user.data.dto.*;
 import com.backend.server.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
@@ -62,5 +60,11 @@ public class UserService {
         saveUserEntityBean.exec(userEntity);
 
         return userEntity.getUserId();
+    }
+
+    private final LoginUserEntityBean loginUserEntityBean;
+    public UUID login(LoginUserDto loginUserDto) {
+         UserEntity userEntity = loginUserEntityBean.exec(loginUserDto);
+         return userEntity == null ? null : userEntity.getUserId();
     }
 }

@@ -1,9 +1,6 @@
 package com.backend.server.domain.user.controller;
 
-import com.backend.server.domain.user.data.dto.DeleteUserDto;
-import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
-import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
-import com.backend.server.domain.user.data.dto.UpdateUserDto;
+import com.backend.server.domain.user.data.dto.*;
 import com.backend.server.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @RequestMapping("/api/user")
@@ -69,6 +67,19 @@ public class UserController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", result == null ? "회원 삭제 실패" : "회원 삭제 성공!");
+        response.put("hasSuccess", result != null);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/login")  // GetMapping에는 캐싱 기능이 있기 때문에 로그인은 주로 PostMapping을 사용
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginUserDto loginUserDto) {
+
+        UUID result = userService.login(loginUserDto);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("userId", result);
+        response.put("message", result == null ? "로그인 실패" : "로그인 성공");
         response.put("hasSuccess", result != null);
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
