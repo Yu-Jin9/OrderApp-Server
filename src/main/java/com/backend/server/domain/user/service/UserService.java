@@ -5,6 +5,7 @@ import com.backend.server.domain.user.bean.GetAllUserEntityBean;
 import com.backend.server.domain.user.bean.GetUserEntityBean;
 import com.backend.server.domain.user.bean.SaveUserEntityBean;
 import com.backend.server.domain.user.data.UserEntity;
+import com.backend.server.domain.user.data.dto.DeleteUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetAllUserDto;
 import com.backend.server.domain.user.data.dto.ResponseGetUserDto;
 import com.backend.server.domain.user.data.dto.UpdateUserDto;
@@ -52,4 +53,14 @@ public class UserService {
 
          return userEntity.getUserId();
      }
+
+    public UUID deleteMenu(DeleteUserDto deleteUserDto) {
+        UserEntity userEntity = getUserEntityBean.exec(deleteUserDto.getUserId());
+        if(userEntity == null) return null;
+
+        userEntity.deleteUser(true);
+        saveUserEntityBean.exec(userEntity);
+
+        return userEntity.getUserId();
+    }
 }

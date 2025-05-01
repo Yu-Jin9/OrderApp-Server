@@ -1,6 +1,7 @@
 package com.backend.server.domain.user.data;
 
 import com.backend.server.domain.order.data.STATE;
+import com.backend.server.domain.user.data.dto.DeleteUserDto;
 import com.backend.server.domain.user.data.dto.UpdateUserDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,5 +29,9 @@ public class UserEntity {
     public void updateUser(UpdateUserDto updateUserDto) {
         this.userName = updateUserDto.getUserName();
         this.role = updateUserDto.getRole();
+    }
+
+    public void deleteUser(boolean result ) {
+        this.hasDelete = result;
     }
 }
