@@ -14,12 +14,14 @@ public class ResponseGetUserDto {
     private String email;
     private Role role;
     private String userName;
+    private boolean hasDelete;
 
     @Builder
     public ResponseGetUserDto(UserEntity user) {
-        this.userId = getUserId();
-        this.email = getEmail();
-        this.role = getRole();
-        this.userName = getUserName();
+        this.userId = user.getUserId();
+        this.email = user.getEmail();
+        this.role = user.getRole();
+        this.userName = user.getUserName();
+        this.hasDelete = user.isHasDelete();
     }
 }
